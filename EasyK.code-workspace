@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "firmware",
+			"path": "firmware"
+		},
+		{
+			"name": "test_macropad",
+			"path": "../test_macropad"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"memory": "cpp"
+		}
+	}
+}

@@ -5,3 +5,6 @@ cad/PCB/macro_pad/report.txt
 cad/PCB/macro_pad/_autosave*
 cad/PCB/macro_pad/~_autosave*
 cad/PCB/macro_pad/fp-info-cache
+firmware/lib/README
+firmware/test/README
+firmware/include/README
