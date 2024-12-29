@@ -16,6 +16,8 @@ private:
     
 public:
 
-    KeyboardAction(KeyboardKeycode key, String type);
+    KeyboardAction(KeyboardKeycode key, std::string type);
     int invoke();
+
+    static KeyboardAction* deserialize(std::string json);
 };

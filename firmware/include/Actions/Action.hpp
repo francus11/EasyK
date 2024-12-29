@@ -1,11 +1,11 @@
 #pragma once
-#include <Arduino.h>
 #include <nlohmann/json.hpp>
+#include <string>
 // interface for actions in responce for physical input
 
 class Action
 {
     public:
     virtual int invoke();
-    static Action* deserialize(String json);
+    static Action* deserialize(std::string json);
 };

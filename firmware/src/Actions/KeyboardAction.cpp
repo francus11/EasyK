@@ -1,6 +1,6 @@
 #include "Actions/KeyboardAction.hpp"
 
-KeyboardAction::KeyboardAction(KeyboardKeycode key, String type)
+KeyboardAction::KeyboardAction(KeyboardKeycode key, std::string type)
 {
     this->key = key;
     if (type == "press")
@@ -45,4 +45,10 @@ int KeyboardAction::releaseKey()
 int KeyboardAction::clickKey()
 {
     return Keyboard.click(key);
+}
+
+KeyboardAction* KeyboardAction::deserialize(std::string json)
+{
+    nlohmann::json j = nlohmann::json::parse(json.c_str());
+    return new KeyboardAction(static_cast<KeyboardKeycode>(static_cast<uint8_t>(j["key"])), j["type"].get<std::string>().c_str());
 }
