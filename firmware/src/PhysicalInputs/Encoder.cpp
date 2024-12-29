@@ -1,6 +1,6 @@
 #include "PhysicalInputs/Encoder.hpp"
 
-Encoder::Encoder(int pinEncA, int pinEncB, int pinButton, Action actionLeft, Action actionRight, Action actionButton)
+Encoder::Encoder(int pinEncA, int pinEncB, int pinButton, Action* actionLeft, Action* actionRight, Action* actionButton)
 {
     this->pinEncA = pinEncA;
     this->pinEncB = pinEncB;
@@ -58,17 +58,17 @@ int Encoder::invoke()
     {
         if (direction)
         {
-            actionRight.invoke();
+            actionRight->invoke();
         }
         else
         {
-            actionLeft.invoke();
+            actionLeft->invoke();
         }
         detected = 0;
     }
 
     if (!digitalRead(pinButton))
     {
-        actionButton.invoke();
+        actionButton->invoke();
     }
 }

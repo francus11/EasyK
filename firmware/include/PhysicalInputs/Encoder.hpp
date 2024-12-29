@@ -23,14 +23,14 @@ class Encoder: PhysicalInput
         bool detected = false;
         bool direction = 0; // 0->left, 1->right
 
-        Action actionLeft;
-        Action actionRight;
-        Action actionButton;
+        Action* actionLeft;
+        Action* actionRight;
+        Action* actionButton;
 
         void checkRotation();
         
     public:
-        Encoder(int pinEncA, int pinEncB, int pinButton, Action actionLeft, Action actionRight, Action actionButton);
+        Encoder(int pinEncA, int pinEncB, int pinButton, Action* actionLeft, Action* actionRight, Action* actionButton);
         int invoke();
         static void globalCheckRotation();
 };
