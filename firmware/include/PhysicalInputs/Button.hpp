@@ -8,8 +8,8 @@ private:
     int pinA; // input_pullup
     int pinB; // output low
 
-    Action action;
+    Action* action;
 public:
-    Button(int pinA, int pinB, Action action);
+    Button(int pinA, int pinB, Action* action);
     int invoke();
 };

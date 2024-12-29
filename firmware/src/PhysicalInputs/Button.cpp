@@ -1,6 +1,6 @@
 #include "PhysicalInputs/Button.hpp"
 
-Button::Button(int pinA, int pinB, Action action)
+Button::Button(int pinA, int pinB, Action* action)
 {
     this->pinA = pinA;
     this->pinB = pinB;
@@ -15,7 +15,7 @@ int Button::invoke()
 
     if (!digitalRead(pinA))
     {
-        return action.invoke();
+        return action->invoke();
     }
     
     return 0;
