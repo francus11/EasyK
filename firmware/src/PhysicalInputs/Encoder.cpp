@@ -1,5 +1,8 @@
 #include "PhysicalInputs/Encoder.hpp"
 
+Encoder* Encoder::instances[MAX_ENCODERS] = {nullptr};
+int Encoder::instanceCount = 0;
+
 Encoder::Encoder(int pinEncA, int pinEncB, int pinButton, Action* actionLeft, Action* actionRight, Action* actionButton)
 {
     this->pinEncA = pinEncA;
@@ -12,10 +15,15 @@ Encoder::Encoder(int pinEncA, int pinEncB, int pinButton, Action* actionLeft, Ac
 
     pinMode(this->pinEncA, INPUT_PULLUP);
     pinMode(this->pinEncB, INPUT_PULLUP);
-    pinMode(3, INPUT_PULLUP);
+    pinMode(this->pinButton, INPUT_PULLUP);
 
     attachInterrupt(this->pinEncA, globalCheckRotation, CHANGE);
-    attachInterrupt(this->pinEncB, globalCheckRotation, CHANGE);;
+    attachInterrupt(this->pinEncB, globalCheckRotation, CHANGE);
+    if(instanceCount < MAX_ENCODERS)
+    {
+        instances[instanceCount] = this;
+        instanceCount++;
+    }
 }
 
 void Encoder::checkRotation()

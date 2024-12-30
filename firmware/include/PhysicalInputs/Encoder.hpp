@@ -35,5 +35,4 @@ class Encoder: PhysicalInput
         static void globalCheckRotation();
 };
 
-Encoder* Encoder::instances[MAX_ENCODERS] = {nullptr};
-int Encoder::instanceCount = 0;
+
