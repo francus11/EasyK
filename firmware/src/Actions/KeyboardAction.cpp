@@ -49,6 +49,7 @@ int KeyboardAction::clickKey()
 
 KeyboardAction* KeyboardAction::deserialize(std::string json)
 {
-    nlohmann::json j = nlohmann::json::parse(json.c_str());
-    return new KeyboardAction(static_cast<KeyboardKeycode>(static_cast<uint8_t>(j["key"])), j["type"].get<std::string>().c_str());
+    JsonDocument doc;
+    deserializeJson(doc, json.c_str());
+    return new KeyboardAction(static_cast<KeyboardKeycode>(static_cast<uint8_t>(doc["key"])), doc["type"]);
 }
