@@ -2,7 +2,7 @@
 
 #include "Action.hpp"
 
-class EmptyAction : Action
+class EmptyAction : public Action
 {
     public:
     int invoke();
