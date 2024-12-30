@@ -1,6 +1,8 @@
 #pragma once
-#include <nlohmann/json.hpp>
+#include <ArduinoJson.h>
 #include <string>
+
+
 // interface for actions in responce for physical input
 
 class Action
