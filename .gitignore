@@ -8,3 +8,7 @@ cad/PCB/macro_pad/fp-info-cache
 firmware/lib/README
 firmware/test/README
 firmware/include/README
+
+software/configApp/obj/*
+software/configApp/.vs/*
+software/configApp/bin/*

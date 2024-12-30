@@ -14,7 +14,11 @@
 	],
 	"settings": {
 		"files.associations": {
-			"memory": "cpp"
+			"memory": "cpp",
+			"chrono": "cpp",
+			"format": "cpp",
+			"istream": "cpp",
+			"type_traits": "cpp"
 		}
 	}
 }
