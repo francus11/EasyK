@@ -2,7 +2,7 @@
 
 #include "PhysicalInput.hpp"
 
-class Button: PhysicalInput
+class Button: public PhysicalInput
 {
 private:
     int pinA; // input
