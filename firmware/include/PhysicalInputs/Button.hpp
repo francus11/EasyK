@@ -5,11 +5,14 @@
 class Button: PhysicalInput
 {
 private:
-    int pinA; // input_pullup
-    int pinB; // output low
+    int pinA; // input
+    int pinB; // output
+    int type;
+    bool pressedState;
 
     Action* action;
 public:
-    Button(int pinA, int pinB, Action* action);
+    Button(int pinA, int pinB, int type, Action* action);
     int invoke();
+    int getPressedState();
 };
