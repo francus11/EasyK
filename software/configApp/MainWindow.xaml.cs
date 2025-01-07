@@ -20,5 +20,12 @@ namespace configApp
         {
             InitializeComponent();
         }
+
+        private void OpenNewWindow_Click(object sender, RoutedEventArgs e)
+        {
+            KeysCapture newWindow = new KeysCapture();
+
+            newWindow.ShowDialog();
+        }
     }
 }

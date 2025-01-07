@@ -14,6 +14,11 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Button Content="Otwórz nowe okno" 
+        HorizontalAlignment="Left" 
+        VerticalAlignment="Bottom" 
+        Margin="60,0,0,622"
+        Click="OpenNewWindow_Click" />
         <Canvas Margin="224,190,225,142" Width="420" Height="420">
             <Ellipse HorizontalAlignment="Left" Height="100" Stroke="Black" VerticalAlignment="Top" Width="100" Canvas.Left="320" Canvas.Top="-100"/>
 

@@ -1,0 +1,13 @@
+﻿<Window x:Class="configApp.KeysCapture"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Key Combination Detector" Height="200" Width="400"
+        KeyDown="Window_KeyDown">
+    <Grid>
+        <TextBlock Name="KeyCombinationText"
+                   Text="Wciśnij klawisze..."
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="16" />
+    </Grid>
+</Window>
