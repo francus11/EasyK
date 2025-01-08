@@ -5,7 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:configApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="MainWindow" Height="720" Width="1280" Background="White">
+    <Window.Resources>
+        <Color x:Key="KeyColor" >#CECCCC</Color>
+        <Color x:Key="KeyColorFocus" >#CECCCC</Color>
+        <Color x:Key="KeyColorHover">#b3b3b3</Color>
+
+        <Style x:Key="RectangleStyle" TargetType="Rectangle">
+            <Setter Property="Width" Value="75" />
+            <Setter Property="Height" Value="75" />
+            <Setter Property="Stroke" Value="Black" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Fill">
+                <Setter.Value>
+                    <SolidColorBrush Color="{StaticResource KeyColor}" />
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="Fill.Color" 
+                                        To="{StaticResource KeyColorHover}" 
+                                        Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="Fill.Color" 
+                                        To="{StaticResource KeyColor}" 
+                                        Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="869*"/>
@@ -35,22 +75,22 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Column="1"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Column="2"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Column="3"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Row="1"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="1"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Column="2" Grid.Row="1"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Column="3" Grid.Row="1"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Row="2"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="2"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Column="2" Grid.Row="2"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Column="3" Grid.Row="2"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Row="4"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="4"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Column="2" Grid.Row="4"/>
-                <Rectangle HorizontalAlignment="Center" Height="75" Stroke="Black" VerticalAlignment="Center" Width="75" Grid.Column="3" Grid.Row="4"/>
+                <Rectangle Style="{StaticResource RectangleStyle}"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Column="1"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Column="2"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Column="3"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Row="1"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Column="1" Grid.Row="1"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Column="2" Grid.Row="1"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Column="3" Grid.Row="1"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Row="2"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Column="1" Grid.Row="2"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Column="2" Grid.Row="2"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Column="3" Grid.Row="2"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Row="4"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Column="1" Grid.Row="4"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Column="2" Grid.Row="4"/>
+                <Rectangle Style="{StaticResource RectangleStyle}" Grid.Column="3" Grid.Row="4"/>
             </Grid>
         </Canvas>
         <Canvas x:Name="SelectedElementConfig" Grid.Column="1" Visibility="Hidden">
