@@ -21,7 +21,7 @@ namespace configApp.UI
     /// </summary>
     public partial class ActionStackPanelItem : UserControl
     {
-        private IAction _action;
+        public IAction Action { get; set; }
         public string LabelContent
         {
             get => ContentLabel.Content.ToString();
