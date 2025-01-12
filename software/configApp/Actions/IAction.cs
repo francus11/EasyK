@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace configApp.Actions
 {
-    interface IAction
+    public interface IAction
     {
+        public string Label { get; }
+
     }
 }

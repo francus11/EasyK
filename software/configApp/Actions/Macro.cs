@@ -8,8 +8,14 @@ namespace configApp.Actions
 {
     public class Macro : IAction
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Command { get; set; }
+        public List<IAction> ActionList { get; set; }
+
+        public string Label { get; private set; }
+
+        public Macro(List<IAction> actions)
+        {
+            ActionList = actions;
+            Label = "Macro";
+        }
     }
 }
