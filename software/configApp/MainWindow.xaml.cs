@@ -101,7 +101,7 @@ namespace configApp
             {
                 var textBlock = new TextBlock
                 {
-                    Text = $"Configuring: {macro.Name}",
+                    Text = $"Configuring:",
                     FontSize = 20,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center
