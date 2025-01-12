@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="configApp.UI.ActionStackPanelItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:configApp.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Height="30" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{Binding Height, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="{Binding Height, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"/>
+            <ColumnDefinition Width="{Binding Height, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}"/>
+        </Grid.ColumnDefinitions>
+        <!-- Przyciski i label -->
+        <Button x:Name="DragButton" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}">
+            <Button.Content>
+                <Path Data="{StaticResource GripLinesSolidIcon}" Fill="Black" VerticalAlignment="Center" Stretch="Uniform" HorizontalAlignment="Center" Width="15"/>
+            </Button.Content>
+        </Button>
+        <Label x:Name="ContentLabel" Content="text" Grid.Column="1" />
+        <Button x:Name="EditButton" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Grid.Column="2">
+            <Button.Content>
+                <Path Data="{StaticResource PenToSquareSolidIcon}" Fill="Black" VerticalAlignment="Center" Stretch="Uniform" HorizontalAlignment="Center" Width="10"/>
+            </Button.Content>
+        </Button>
+        <Button x:Name="DeleteButton" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Grid.Column="5">
+            <Button.Content>
+                <Path Data="{StaticResource XMarkSolidIcon}" Fill="Black" VerticalAlignment="Center" Stretch="Uniform" HorizontalAlignment="Center" Width="10"/>
+            </Button.Content>
+        </Button>
+    </Grid>
+</UserControl>

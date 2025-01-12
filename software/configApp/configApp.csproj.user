@@ -10,12 +10,24 @@
     <Compile Update="KeysCapture.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UI\ActionStackPanelItem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Icons\PenToSquareSolidIcon.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Icons\XMarkSolidIcon.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="KeysCapture.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\ActionStackPanelItem.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

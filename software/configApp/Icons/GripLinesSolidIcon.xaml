@@ -1,0 +1,6 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Definicja ikony -->
+    <PathGeometry x:Key="GripLinesSolidIcon">F1 M448,512z M0,0z M32,288C14.3,288 0,302.3 0,320 0,337.7 14.3,352 32,352L416,352C433.7,352 448,337.7 448,320 448,302.3 433.7,288 416,288L32,288z M32,160C14.3,160 0,174.3 0,192 0,209.7 14.3,224 32,224L416,224C433.7,224 448,209.7 448,192 448,174.3 433.7,160 416,160L32,160z</PathGeometry>
+</ResourceDictionary>

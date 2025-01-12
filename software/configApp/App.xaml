@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:configApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Icons/GripLinesSolidIcon.xaml" />
+                <ResourceDictionary Source="Icons/XMarkSolidIcon.xaml" />
+                <ResourceDictionary Source="Icons/PenToSquareSolidIcon.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

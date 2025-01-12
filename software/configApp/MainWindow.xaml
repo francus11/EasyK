@@ -103,7 +103,20 @@
                     <RowDefinition Height="643*"/>
                     <RowDefinition Height="61*"/>
                 </Grid.RowDefinitions>
-                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <StackPanel x:Name="TextBoxStackPanel" VerticalAlignment="Top" Margin="10">
+                            <local:ActionStackPanelItem LabelContent="Action 1"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <GridSplitter Background="#FFE50808" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="5" />
+                    <Button Content="Dodaj TextBox" Grid.Row="1" Click="AddTextBoxButton_Click" Margin="10"/>
+                </Grid>
                 <Button Content="Save" Width="40" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Margin="0,0,30,0"/>
             </Grid>
         </Canvas>

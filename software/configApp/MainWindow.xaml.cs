@@ -78,7 +78,21 @@ namespace configApp
                 ResetCanvas(); 
             }
         }
-        
+
+        private void AddTextBoxButton_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO : Add logic to select type of action
+            TextBox newTextBox = new TextBox();
+            newTextBox.Text = "New TextBox" + counter;
+            newTextBox.Margin = new Thickness(0, 5, 0, 5);
+            newTextBox.Width = 200;
+            newTextBox.Height = 50;
+
+            
+            TextBoxStackPanel.Children.Add(newTextBox);
+
+            counter++;
+        }
 
         private void UpdateCanvas(Macro? macro)
         {
