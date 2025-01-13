@@ -20,7 +20,6 @@ namespace configApp
     {
         private KeyButton? _activeButton = null;
 
-        private int counter = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -39,8 +38,6 @@ namespace configApp
 
             if (sender is KeyButton keyButton)
             {
-                /*keyButton. = !keyButton.IsPressed;*/
-                /*keyButton.Toggle();*/
 
                 if (_activeButton == keyButton)
                 {
@@ -82,19 +79,19 @@ namespace configApp
         private void AddTextBoxButton_Click(object sender, RoutedEventArgs e)
         {
             // TODO : Add logic to select type of action
-            TextBox newTextBox = new TextBox();
-            newTextBox.Text = "New TextBox" + counter;
-            newTextBox.Margin = new Thickness(0, 5, 0, 5);
-            newTextBox.Width = 200;
-            newTextBox.Height = 50;
 
-            
-            TextBoxStackPanel.Children.Add(newTextBox);
-
-            counter++;
+            KeysCapture keysCaptureWindow = new KeysCapture();
+            bool? result = keysCaptureWindow.ShowDialog();
+            if (result == true)
+            {
+                TextBoxStackPanel.Children.Add(new ActionStackPanelItem
+                {
+                    LabelContent = keysCaptureWindow.CapturedKeyCombination
+                });
+            }
         }
 
-        private void UpdateCanvas(Macro? macro)
+        private void UpdateCanvas(MacroAction? macro)
         {
             SelectedElementConfig.Children.Clear();
             if (macro != null)

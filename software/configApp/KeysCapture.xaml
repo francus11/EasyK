@@ -2,12 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Key Combination Detector" Height="200" Width="400"
-        KeyDown="Window_KeyDown">
+        PreviewKeyDown="Window_PreviewKeyDown">
     <Grid>
-        <TextBlock Name="KeyCombinationText"
-                   Text="Wciśnij klawisze..."
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="16" />
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+            <TextBlock x:Name="KeyCombinationText" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,10" />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Cancel" Width="75" Margin="5" Click="CancelButton_Click" />
+                <Button Content="OK" Width="75" Margin="5" Click="OkButton_Click" />
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

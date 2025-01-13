@@ -12,35 +12,79 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-using System.Windows;
-using System.Windows.Input;
-
 namespace configApp
 {
     public partial class KeysCapture : Window
     {
-        private ModifierKeys _modifiers = ModifierKeys.None;
+        private List<ModifierKeys> _modifiersList = new List<ModifierKeys>();
+
+        public string CapturedKeyCombination { get; private set; } = string.Empty;
+        public Key? CapturedKey { get; private set; } = null;
+        public List<ModifierKeys> CapturedModifiers { get; private set; } = new List<ModifierKeys>();
 
         public KeysCapture()
         {
             InitializeComponent();
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+
             if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
-                _modifiers |= ModifierKeys.Control;
+            {
+                _modifiersList.Add(ModifierKeys.Control);
+
+            }
             if ((Keyboard.Modifiers & ModifierKeys.Alt) != 0)
-                _modifiers |= ModifierKeys.Alt;
+            {
+                _modifiersList.Add(ModifierKeys.Alt);
+            }
             if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0)
-                _modifiers |= ModifierKeys.Shift;
+            {
+                _modifiersList.Add(ModifierKeys.Shift);
+            }
             if ((Keyboard.Modifiers & ModifierKeys.Windows) != 0)
-                _modifiers |= ModifierKeys.Windows;
+            {
+                _modifiersList.Add(ModifierKeys.Windows);
+            }
 
-            string modifiersText = _modifiers != ModifierKeys.None ? _modifiers.ToString() + " + " : string.Empty;
-            KeyCombinationText.Text = modifiersText + e.Key;
+            KeyCombinationText.Text = string.Join(" + ", _modifiersList.Select(x => x.ToString()));
 
-            _modifiers = ModifierKeys.None;
+            if (e.Key >= Key.LeftShift && e.Key <= Key.RightAlt)
+            {
+                CapturedKey = null;
+            }
+            else
+            {
+                CapturedKey = e.Key;
+                KeyCombinationText.Text += _modifiersList.Count == 0 ? CapturedKey : " + " + CapturedKey;
+
+            }
+
+            CapturedModifiers = new List<ModifierKeys>(_modifiersList);
+            _modifiersList.Clear();
+
+            // TODO : Solve problem with not capturing Alt + key combinations
+            // TODO : Solve problem with not capturing WIN + key combinations
+        }
+
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            CapturedKeyCombination = string.Join(" + ", CapturedModifiers.Select(x => x.ToString()));
+
+            if (CapturedKey != null && !(CapturedKey >= Key.LeftShift && CapturedKey <= Key.RightAlt))
+            {
+                CapturedKeyCombination += " + " + CapturedKey;
+            }
+
+            this.DialogResult = true;
+            this.Close();
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
         }
     }
 }
