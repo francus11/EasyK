@@ -13,7 +13,7 @@ namespace configApp.UI
 {
     public class KeyButton : Button
     {
-        public Macro? Macro { get; private set; }
+        public MacroAction? Macro { get; private set; }
 
         public static readonly DependencyProperty IsCheckedProperty =
             DependencyProperty.Register("IsChecked", typeof(bool), typeof(KeyButton),
