@@ -73,13 +73,6 @@ namespace configApp
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            //CapturedKeyCombination = string.Join(" + ", CapturedModifiers.Select(x => x.ToString()));
-
-            //if (CapturedKey != null && !(CapturedKey >= Key.LeftShift && CapturedKey <= Key.RightAlt))
-            //{
-            //    CapturedKeyCombination += CapturedModifiers.Count == 0 ? CapturedKey : " + " + CapturedKey;
-            //}
-
             CreatedKeyboardAction = new KeyboardAction(ClickType.Press, CapturedKey, CapturedModifiers);
 
             CapturedKeyCombination = CreatedKeyboardAction.Label;
