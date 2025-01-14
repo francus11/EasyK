@@ -1,4 +1,6 @@
-﻿using System;
+﻿using configApp.Actions;
+using configApp.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +23,8 @@ namespace configApp
         public string CapturedKeyCombination { get; private set; } = string.Empty;
         public Key? CapturedKey { get; private set; } = null;
         public List<ModifierKeys> CapturedModifiers { get; private set; } = new List<ModifierKeys>();
+        public KeyboardAction? OnLoadKeyboardAction { get; set; }
+        public KeyboardAction? CreatedKeyboardAction { get; private set; }
 
         public KeysCapture()
         {
@@ -69,12 +73,16 @@ namespace configApp
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            CapturedKeyCombination = string.Join(" + ", CapturedModifiers.Select(x => x.ToString()));
+            //CapturedKeyCombination = string.Join(" + ", CapturedModifiers.Select(x => x.ToString()));
 
-            if (CapturedKey != null && !(CapturedKey >= Key.LeftShift && CapturedKey <= Key.RightAlt))
-            {
-                CapturedKeyCombination += CapturedModifiers.Count == 0 ? CapturedKey : " + " + CapturedKey;
-            }
+            //if (CapturedKey != null && !(CapturedKey >= Key.LeftShift && CapturedKey <= Key.RightAlt))
+            //{
+            //    CapturedKeyCombination += CapturedModifiers.Count == 0 ? CapturedKey : " + " + CapturedKey;
+            //}
+
+            CreatedKeyboardAction = new KeyboardAction(ClickType.Press, CapturedKey, CapturedModifiers);
+
+            CapturedKeyCombination = CreatedKeyboardAction.Label;
 
             this.DialogResult = true;
             this.Close();
