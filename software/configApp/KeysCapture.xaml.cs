@@ -29,7 +29,6 @@ namespace configApp
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-
             if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
             {
                 _modifiersList.Add(ModifierKeys.Control);
@@ -74,7 +73,7 @@ namespace configApp
 
             if (CapturedKey != null && !(CapturedKey >= Key.LeftShift && CapturedKey <= Key.RightAlt))
             {
-                CapturedKeyCombination += " + " + CapturedKey;
+                CapturedKeyCombination += CapturedModifiers.Count == 0 ? CapturedKey : " + " + CapturedKey;
             }
 
             this.DialogResult = true;
