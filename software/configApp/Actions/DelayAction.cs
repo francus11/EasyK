@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace configApp.Actions
 {
-    internal class DelayAction : IAction
+    public class DelayAction : IAction
     {
         public int Delay { get; private set; }
         public string Label { get; private set; };
