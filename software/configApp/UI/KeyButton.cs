@@ -1,4 +1,5 @@
 ﻿using configApp.Actions;
+using configApp.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,10 @@ namespace configApp.UI
 {
     public class KeyButton : Button
     {
+        // TODO: Remove this property
         public MacroAction? Macro { get; private set; }
+
+        public ButtonControl? ButtonControl { get; set; }
 
         public static readonly DependencyProperty IsCheckedProperty =
             DependencyProperty.Register("IsChecked", typeof(bool), typeof(KeyButton),
@@ -30,6 +34,7 @@ namespace configApp.UI
 
         public KeyButton()
         {
+            ButtonControl = new ButtonControl();
             this.Click += (s, e) =>
             {
                 IsChecked = !IsChecked;
