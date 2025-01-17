@@ -45,6 +45,11 @@ Keyboard_::Keyboard_(void) : HIDDevice_(keyboardDescriptorReport, sizeof(keyboar
 	send();
 }
 
+void Keyboard_::clearReport(void)
+{
+	removeAll();
+}
+
 int Keyboard_::add(KeyboardKeycode key) 
 {
 	// Add key to report

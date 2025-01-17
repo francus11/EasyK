@@ -8,9 +8,13 @@ HIDDevice_::HIDDevice_(const uint8_t* descriptorReport, int descriptorSize, unsi
     this->reportSize = reportSize;
     static HIDSubDescriptor node(descriptorReport, descriptorSize);
     HID().AppendDescriptor(&node);
-    clearReport();
+    this->clearReport();
 }
 
 int HIDDevice_::send() {
     return HID().SendReport(reportID, report, reportSize);
+}
+
+void HIDDevice_::clearReport() {
+    // empty implementation
 }

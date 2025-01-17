@@ -17,5 +17,6 @@ public:
     int releaseAll();
     int click(KeyboardKeycode key);
     int set(KeyboardKeycode key, bool s);
+    void clearReport() override;
 };
 extern Keyboard_ Keyboard;
