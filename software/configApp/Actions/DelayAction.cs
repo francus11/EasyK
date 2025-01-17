@@ -9,7 +9,7 @@ namespace configApp.Actions
     public class DelayAction : IAction
     {
         public int Delay { get; private set; }
-        public string Label { get; private set; };
+        public string Label { get; private set; }
 
         public DelayAction(int delay)
         {
