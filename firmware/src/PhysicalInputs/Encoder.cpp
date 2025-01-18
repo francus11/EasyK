@@ -80,3 +80,22 @@ int Encoder::invoke()
         actionButton->invoke();
     }
 }
+std::string Encoder::serialize()
+{
+    JsonDocument doc;
+    doc["id"] = id;
+    Serial.println("Serializing Encoder");
+
+    JsonDocument actionLeftDoc;
+    deserializeJson(actionLeftDoc, actionLeft->serialize());
+    doc["actionLeft"] = actionLeftDoc;
+    JsonDocument actionRightDoc;
+    deserializeJson(actionRightDoc, actionRight->serialize());
+    doc["actionRight"] = actionRightDoc;
+    JsonDocument actionButtonDoc;
+    deserializeJson(actionButtonDoc, actionButton->serialize());
+    doc["actionButton"] = actionButtonDoc;
+    std::string output;
+    serializeJson(doc, output);
+    return output;
+}

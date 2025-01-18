@@ -33,6 +33,7 @@ class Encoder: PhysicalInput
         Encoder(int pinEncA, int pinEncB, int pinButton, Action* actionLeft, Action* actionRight, Action* actionButton);
         int invoke();
         static void globalCheckRotation();
+        std::string serialize();
 };
 
 
