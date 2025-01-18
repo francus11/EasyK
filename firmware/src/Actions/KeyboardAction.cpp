@@ -1,17 +1,18 @@
 #include "Actions/KeyboardAction.hpp"
 
-KeyboardAction::KeyboardAction(KeyboardKeycode key, std::string type)
+KeyboardAction::KeyboardAction(KeyboardKeycode key, KeyState state)
 {
     this->key = key;
-    if (type == "press")
+    this->state = state;
+    if (state == KeyState::Press)
     {
         actionMethod = &KeyboardAction::pressKey;
     }
-    else if (type == "release")
+    else if (state == KeyState::Release)
     {
         actionMethod = &KeyboardAction::releaseKey;
     }
-    else if (type == "click")
+    else if (state == KeyState::Click)
     {
         actionMethod = &KeyboardAction::clickKey;
     }
@@ -51,7 +52,7 @@ KeyboardAction* KeyboardAction::deserialize(std::string json)
 {
     JsonDocument doc;
     deserializeJson(doc, json.c_str());
-    return new KeyboardAction(static_cast<KeyboardKeycode>(static_cast<uint8_t>(doc["key"])), doc["type"]);
+    return new KeyboardAction(static_cast<KeyboardKeycode>(static_cast<uint8_t>(doc["key"])), static_cast<KeyState>(static_cast<uint8_t>(doc["state"])));
 }
 
 std::string KeyboardAction::serialize()
@@ -59,7 +60,9 @@ std::string KeyboardAction::serialize()
     Serial.println("Serializing KeyboardAction");
     JsonDocument doc;
     doc["type"] = "KeyboardAction";
-    doc["key"] = static_cast<uint8_t>(key);
+    JsonObject details = doc.createNestedObject("details");
+    details["key"] = static_cast<uint8_t>(key);
+    details["state"] = static_cast<uint8_t>(state);
     std::string output;
     serializeJson(doc, output);
     return output;
