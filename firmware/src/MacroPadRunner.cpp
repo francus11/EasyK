@@ -60,10 +60,15 @@ std::string MacroPadRunner::serialize()
 
     for (int i = 0; i < 16; i++)
     {
-        buttonsArray.add(buttons[i]->serialize());
+        JsonDocument buttonDoc;
+        deserializeJson(buttonDoc, buttons[i]->serialize());
+        buttonsArray.add(buttonDoc.as<JsonObject>());
     }
 
-    // JsonArray encoderArray = doc.createNestedArray("encoders");
+    JsonArray encoderArray = doc.createNestedArray("encoders");
+    JsonDocument encoderDoc;
+    deserializeJson(encoderDoc, encoder->serialize());
+    encoderArray.add(encoderDoc.as<JsonObject>());
     // encoderArray.add(encoder->serialize());
 
     std::string output;
