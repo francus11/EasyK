@@ -28,3 +28,34 @@ int MacroAction::invoke()
     }
     return 1;
 }
+
+MacroAction* MacroAction::deserialize(std::string json)
+{
+    JsonDocument doc;
+    deserializeJson(doc, json.c_str());
+    MacroAction* macroAction = new MacroAction();
+
+    for (int i = 0; i < doc["actions"].size(); i++)
+    {
+        Action* action = Action::deserialize(doc["actions"][i]);
+        macroAction->addAction(action);
+    }
+
+    return macroAction;
+}
+
+std::string MacroAction::serialize()
+{
+    JsonDocument doc;
+    doc["type"] = "MacroAction";
+    JsonArray actionsArray = doc.createNestedArray("actions");
+
+    for (Action* action : actions)
+    {
+        actionsArray.add(action->serialize());
+    }
+
+    std::string output;
+    serializeJson(doc, output);
+    return output;
+}

@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 
-class MacroAction: Action
+class MacroAction: public Action
 {
     private:
     std::vector<Action*> actions;
@@ -16,4 +16,5 @@ class MacroAction: Action
     int invoke();
 
     static MacroAction* deserialize(std::string json);
+    std::string serialize();
 };
