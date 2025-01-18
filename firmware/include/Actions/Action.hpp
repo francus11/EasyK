@@ -10,4 +10,5 @@ class Action
     public:
     virtual int invoke();
     static Action* deserialize(std::string json);
+    virtual std::string serialize();
 };

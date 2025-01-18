@@ -14,4 +14,5 @@ class ButtonSecured : public PhysicalInput
     public:
         int invoke() override;
         ButtonSecured(int pinA, int pinB, int type, Action* action, int* turnedOffPins, int turnedOffPinsSize);
+        std::string serialize();
 };

@@ -15,4 +15,5 @@ public:
     Button(int pinA, int pinB, int type, Action* action);
     int invoke();
     int getPressedState();
+    std::string serialize();
 };

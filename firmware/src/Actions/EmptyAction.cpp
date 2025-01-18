@@ -9,3 +9,8 @@ EmptyAction* EmptyAction::deserialize(std::string json)
 {
     return new EmptyAction();
 }
+
+std::string EmptyAction::serialize()
+{
+    return "{}";
+}

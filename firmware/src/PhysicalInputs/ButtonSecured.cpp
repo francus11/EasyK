@@ -18,3 +18,7 @@ ButtonSecured::ButtonSecured(int pinA, int pinB, int type, Action* action, int* 
     this->turnedOffPinsSize = turnedOffPinsSize;
 }
 
+std::string ButtonSecured::serialize()
+{
+    return button->serialize();
+}

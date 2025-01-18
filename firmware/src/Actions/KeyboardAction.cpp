@@ -53,3 +53,14 @@ KeyboardAction* KeyboardAction::deserialize(std::string json)
     deserializeJson(doc, json.c_str());
     return new KeyboardAction(static_cast<KeyboardKeycode>(static_cast<uint8_t>(doc["key"])), doc["type"]);
 }
+
+std::string KeyboardAction::serialize()
+{
+    Serial.println("Serializing KeyboardAction");
+    JsonDocument doc;
+    doc["type"] = "KeyboardAction";
+    doc["key"] = static_cast<uint8_t>(key);
+    std::string output;
+    serializeJson(doc, output);
+    return output;
+}

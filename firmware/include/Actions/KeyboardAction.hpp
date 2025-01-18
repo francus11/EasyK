@@ -20,4 +20,5 @@ public:
     int invoke();
 
     static KeyboardAction* deserialize(std::string json);
+    std::string serialize();
 };

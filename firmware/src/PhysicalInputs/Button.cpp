@@ -38,3 +38,8 @@ int Button::getPressedState()
 {
     return pressedState;
 }
+
+std::string Button::serialize()
+{
+    return action->serialize();
+}
