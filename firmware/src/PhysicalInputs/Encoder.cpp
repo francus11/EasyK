@@ -84,7 +84,6 @@ std::string Encoder::serialize()
 {
     JsonDocument doc;
     doc["id"] = id;
-    Serial.println("Serializing Encoder");
 
     JsonDocument actionLeftDoc;
     deserializeJson(actionLeftDoc, actionLeft->serialize());

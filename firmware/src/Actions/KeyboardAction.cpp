@@ -57,7 +57,6 @@ KeyboardAction* KeyboardAction::deserialize(std::string json)
 
 std::string KeyboardAction::serialize()
 {
-    Serial.println("Serializing KeyboardAction");
     JsonDocument doc;
     doc["type"] = "KeyboardAction";
     JsonObject details = doc.createNestedObject("details");
