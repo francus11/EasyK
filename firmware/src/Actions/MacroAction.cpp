@@ -52,7 +52,9 @@ std::string MacroAction::serialize()
 
     for (Action* action : actions)
     {
-        actionsArray.add(action->serialize());
+        JsonDocument actionDoc;
+        deserializeJson(actionDoc, action->serialize());
+        actionsArray.add(actionDoc.as<JsonObject>());
     }
 
     std::string output;
