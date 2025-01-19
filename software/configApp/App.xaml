@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="Icons/GripLinesSolidIcon.xaml" />
                 <ResourceDictionary Source="Icons/XMarkSolidIcon.xaml" />
                 <ResourceDictionary Source="Icons/PenToSquareSolidIcon.xaml" />
+                <ResourceDictionary Source="Icons/EllipsisVerticalSolidIcon.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
