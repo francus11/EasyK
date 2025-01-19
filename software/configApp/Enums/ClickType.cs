@@ -8,9 +8,10 @@ namespace configApp.Enums
 {
     public enum ClickType
     {
+        None,
         Press,
         Release,
         Click,
-        ClickPress
+        Hold
     }
 }
