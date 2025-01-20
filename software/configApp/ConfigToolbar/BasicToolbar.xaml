@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="configApp.ConfigToolbar.BasicToolbar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:configApp.ConfigToolbar"
+             mc:Ignorable="d" 
+             d:DesignHeight="704" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="TabButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style x:Key="BasicButtonStyle" TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ToolbarType, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="Basic">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="Blue"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="AdvancedButtonStyle" TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ToolbarType, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="Advanced">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="Green"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Basic"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="ToolbarButton_Click"
+                    Tag="Basic"
+                    Style="{StaticResource BasicButtonStyle}"
+                    Grid.Column="0" />
+
+            <!-- Advanced Toolbar Button -->
+            <Button Content="Advanced"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="ToolbarButton_Click"
+                    Tag="Advanced"
+                    Style="{StaticResource AdvancedButtonStyle}"
+                    Grid.Column="1" />
+            <Button x:Name="DeleteButton" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Grid.Column="5">
+                <Button.Content>
+                    <Path Data="{StaticResource EllipsisVerticalSolidIcon}" Fill="Black" VerticalAlignment="Center" Stretch="Uniform" HorizontalAlignment="Center" Height="20"/>
+                </Button.Content>
+            </Button>
+        </Grid>
+        <Canvas x:Name="ContentCanvas" Grid.Row="1" />
+        <Grid x:Name="ContentGrid" Grid.Row="1" />
+        <Button Content="Save" Width="40" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Click="Button_Click" Height="19" Margin="0,0,34,0"/>
+        <Grid>
+        </Grid>
+    </Grid>
+</UserControl>

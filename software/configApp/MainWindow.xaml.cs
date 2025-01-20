@@ -1,6 +1,10 @@
 ﻿using configApp.Actions;
+using configApp.ConfigToolbar;
+using configApp.Controls;
+using configApp.JsonConverters;
 using configApp.UI;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,24 +22,33 @@ namespace configApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private KeyButton? _activeButton = null;
+        JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            WriteIndented = true
+        };
+
+        private IInputButton? _activeButton = null;
+
+        public string json = "";
 
         public MainWindow()
         {
             InitializeComponent();
+            options.Converters.Add(new IControlListJsonConverter());
+            options.Converters.Add(new MacroActionJsonConverter());
+            options.Converters.Add(new KeyboardActionJsonConverter());
+            options.Converters.Add(new ButtonControlJsonConverter());
+            options.Converters.Add(new DelayActionJsonConverter());
+            options.Converters.Add(new IActionJsonConverter());
         }
 
         private void OpenNewWindow_Click(object sender, RoutedEventArgs e)
         {
-            KeysCapture newWindow = new KeysCapture();
-
-            newWindow.ShowDialog();
+            
         }
 
         private void KeyButton_Click(object sender, RoutedEventArgs e)
         {
-
-
             if (sender is KeyButton keyButton)
             {
 
@@ -46,23 +59,22 @@ namespace configApp
                 }
                 else
                 {
-                    UpdateCanvas(keyButton.Macro);
                     _activeButton = keyButton;
+                    UpdateCanvas();
                 }
             }
         }
 
         private void KeyButton_Checked(object sender, RoutedEventArgs e)
         {
-            if (sender is KeyButton keyButton)
+            if (sender is IInputButton button)
             {
                 if (_activeButton != null)
                 {
                     _activeButton.IsChecked = false;
                 }
-                _activeButton = keyButton;
-                Console.WriteLine($"Przycisk {keyButton.Content} włączony.");
-                UpdateCanvas(keyButton.Macro);
+                _activeButton = button;
+                UpdateCanvas();
             }
         }
 
@@ -76,43 +88,27 @@ namespace configApp
             }
         }
 
-        private void AddTextBoxButton_Click(object sender, RoutedEventArgs e)
+        private void UpdateCanvas()
         {
-            // TODO : Add logic to select type of action
-
-            KeysCapture keysCaptureWindow = new KeysCapture();
-            bool? result = keysCaptureWindow.ShowDialog();
-            if (result == true)
-            {
-                TextBoxStackPanel.Children.Add(new ActionStackPanelItem
-                {
-                    LabelContent = keysCaptureWindow.CapturedKeyCombination
-                });
-            }
-        }
-
-        private void UpdateCanvas(MacroAction? macro)
-        {
-            SelectedElementConfig.Children.Clear();
-            if (macro != null)
-            {
-                var textBlock = new TextBlock
-                {
-                    Text = $"Configuring:",
-                    FontSize = 20,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center
-                };
-                SelectedElementConfig.Children.Add(textBlock);
-            }
             NotSelectedElementConfig.Visibility = Visibility.Hidden;
-            SelectedElementConfig.Visibility = Visibility.Visible;
+            BasicToolbar toolbar = new BasicToolbar()
+            {
+                Control = _activeButton.SavedControl
+            };
+            ToolbarSectionGrid.Children.Clear();
+            ToolbarSectionGrid.Children.Add(toolbar);
         }
 
         private void ResetCanvas()
         {
+            ToolbarSectionGrid.Children.Clear();
             NotSelectedElementConfig.Visibility = Visibility.Visible;
-            SelectedElementConfig.Visibility = Visibility.Hidden;
+        }
+
+        //TODO Make sure this method is in right class. Probably it is
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

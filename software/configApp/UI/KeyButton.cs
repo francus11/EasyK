@@ -12,12 +12,9 @@ using System.Windows.Media;
 
 namespace configApp.UI
 {
-    public class KeyButton : Button
+    public class KeyButton : Button, IInputButton
     {
-        // TODO: Remove this property
-        public MacroAction? Macro { get; private set; }
-
-        public ButtonControl? ButtonControl { get; set; }
+        public IControl? SavedControl { get; set; }
 
         public static readonly DependencyProperty IsCheckedProperty =
             DependencyProperty.Register("IsChecked", typeof(bool), typeof(KeyButton),
@@ -34,7 +31,7 @@ namespace configApp.UI
 
         public KeyButton()
         {
-            ButtonControl = new ButtonControl();
+            SavedControl = new ButtonControl();
             this.Click += (s, e) =>
             {
                 IsChecked = !IsChecked;

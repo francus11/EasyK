@@ -61,7 +61,7 @@
         Margin="60,0,0,622"
         Click="OpenNewWindow_Click" />
         <Canvas x:Name="ButtonsMatrixCanvas" Margin="224,190,225,142" Width="420" Height="420">
-            <Ellipse HorizontalAlignment="Left" Height="100" Stroke="Black" VerticalAlignment="Top" Width="100" Canvas.Left="320" Canvas.Top="-100"/>
+            <local:EncoderButton HorizontalAlignment="Left" Canvas.Left="315" Canvas.Top="-110" VerticalAlignment="Top" Height="105" Width="105" Checked="KeyButton_Checked" Unchecked="KeyButton_Unchecked"/>
 
             <Grid Height="420" Width="420">
                 <Grid.RowDefinitions>
@@ -95,8 +95,9 @@
             </Grid>
         </Canvas>
         <GridSplitter Width="5" Background="#FFCE0B0B"/>
-
-        <Canvas x:Name="SelectedElementConfig" Grid.Column="1">
+        <Grid x:Name="ToolbarSectionGrid" Grid.Column="1" />
+        <!-- TODO Remove SelectedElementConfig -->
+        <Canvas x:Name="SelectedElementConfig" Grid.Column="1" Visibility="Hidden">
 
             <Grid Height="704" Width="411" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
@@ -111,16 +112,15 @@
 
                     <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <StackPanel x:Name="TextBoxStackPanel" VerticalAlignment="Top" Margin="10">
-                            <local:ActionStackPanelItem LabelContent="Action 1"/>
                         </StackPanel>
                     </ScrollViewer>
                     <GridSplitter Background="#FFE50808" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="5" />
-                    <Button Content="Dodaj TextBox" Grid.Row="1" Click="AddTextBoxButton_Click" Margin="10"/>
+                    <Button Content="Add action" Grid.Row="1" Margin="10"/>
                 </Grid>
-                <Button Content="Save" Width="40" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Margin="0,0,30,0"/>
+                <Button Content="Save" Width="40" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Margin="0,0,30,0" Click="Button_Click"/>
             </Grid>
         </Canvas>
-        <Canvas x:Name="NotSelectedElementConfig" Grid.Column="1" Visibility="Hidden">
+        <Canvas x:Name="NotSelectedElementConfig" Grid.Column="1">
             <Grid Height="704" Width="411">
                 <Label Content="Select element on the left to configure its action" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
@@ -128,6 +128,7 @@
         <Button HorizontalAlignment="Left" Margin="749,80,0,0" VerticalAlignment="Top" Width="75" Height="75">
             <Button Content="Button"/>
         </Button>
+        <Canvas/>
 
     </Grid>
 </Window>

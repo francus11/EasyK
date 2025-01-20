@@ -7,7 +7,16 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="ConnectDeviceSerial.xaml.cs">
+    <Compile Update="ConfigToolbar\BasicToolbar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ConfigToolbar\EncoderAdvancedToolbar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ConfigToolbar\KeyAdvancedToolbar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ConnectDeviceSerialWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="KeysCapture.xaml.cs">
@@ -18,10 +27,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="ConnectDeviceSerial.xaml">
+    <Page Update="ConfigToolbar\BasicToolbar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ConfigToolbar\EncoderAdvancedToolbar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ConfigToolbar\KeyAdvancedToolbar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ConnectDeviceSerialWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Icons\PenToSquareSolidIcon.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Icons\EllipsisVerticalSolidIcon.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Icons\XMarkSolidIcon.xaml">
