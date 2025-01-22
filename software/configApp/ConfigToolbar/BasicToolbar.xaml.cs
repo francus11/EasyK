@@ -32,8 +32,10 @@ namespace configApp.ConfigToolbar
             set => SetValue(ToolbarTypeProperty, value);
         }
         
+        public event RoutedEventHandler? SaveClicked;
 
         private IControl _control;
+        private IControlToolbar _controlToolbar;
         public IControl Control
         {
             get => _control;
@@ -86,11 +88,16 @@ namespace configApp.ConfigToolbar
                 if (Control is ButtonControl buttonControl)
                 { 
                     KeyAdvancedToolbar keyAdvancedToolbar = new KeyAdvancedToolbar();
+                    _controlToolbar = keyAdvancedToolbar;
+                    _controlToolbar.OldControl = buttonControl;
                     ContentGrid.Children.Add(keyAdvancedToolbar);
                 }
                 else if (Control is EncoderControl encoderControl)
                 {
                     EncoderAdvancedToolbar encoderAdvancedToolbar = new EncoderAdvancedToolbar();
+                    _controlToolbar = encoderAdvancedToolbar;
+                    _controlToolbar.OldControl = encoderControl;
+
                     ContentGrid.Children.Add(encoderAdvancedToolbar);
                 }
             }
@@ -110,5 +117,10 @@ namespace configApp.ConfigToolbar
         }
 
         //TODO Add event for saving
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Control = _controlToolbar.NewControl;
+            SaveClicked?.Invoke(this, e);
+        }
     }
 }

@@ -79,7 +79,7 @@
         </Grid>
         <Canvas x:Name="ContentCanvas" Grid.Row="1" />
         <Grid x:Name="ContentGrid" Grid.Row="1" />
-        <Button Content="Save" Width="40" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Click="Button_Click" Height="19" Margin="0,0,34,0"/>
+        <Button Content="Save" Width="40" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Click="SaveButton_Click" Height="19" Margin="0,0,34,0"/>
         <Grid>
         </Grid>
     </Grid>

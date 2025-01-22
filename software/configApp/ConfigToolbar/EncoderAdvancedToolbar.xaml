@@ -57,14 +57,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="383*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-
-        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.RowSpan="2">
-            <StackPanel x:Name="ActionsStackPanel" VerticalAlignment="Top" Margin="10">
-            </StackPanel>
-        </ScrollViewer>
         <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -76,7 +71,21 @@
             <Button Grid.Column="2" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ButtonButtonStyle}" Tag="Button" Click="EncoderToolbarButton_Click"/>
 
         </Grid>
-        <GridSplitter Background="#FFE50808" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="5" Margin="0,377,0,0" Grid.Row="1" />
-        <Button x:Name="AddActionButton" Content="Add action" Grid.Row="2" Click="AddActionButton_Click" Margin="10,10,10,10"/>
+        
+        <ScrollViewer x:Name="LeftScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel x:Name="LeftActionsStackPanel" VerticalAlignment="Top" Margin="10">
+            </StackPanel>
+        </ScrollViewer>
+        <ScrollViewer x:Name="RightScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel x:Name="RightActionsStackPanel" VerticalAlignment="Top" Margin="10">
+            </StackPanel>
+        </ScrollViewer>
+        <ScrollViewer x:Name="ButtonScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel x:Name="ButtonActionsStackPanel" VerticalAlignment="Top" Margin="10">
+            </StackPanel>
+        </ScrollViewer>
+        <GridSplitter Background="#FFE50808" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="5" Margin="0,377,0,0" Grid.Row="1" />
+
+        <Button x:Name="AddActionButton" Content="Add action" Grid.Row="2" Click="AddActionButton_Click" Margin="10,10,10,10" Height="20"/>
     </Grid>
 </UserControl>

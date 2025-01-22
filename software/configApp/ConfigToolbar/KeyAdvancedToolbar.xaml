@@ -18,5 +18,13 @@
         </ScrollViewer>
         <GridSplitter Background="#FFE50808" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="5" />
         <Button x:Name="AddActionButton" Content="Add action" Grid.Row="1" Click="AddActionButton_Click" Margin="10"/>
+        <Popup x:Name="MenuPopup" PlacementTarget="{Binding ElementName=AddActionButton}" Placement="Bottom" StaysOpen="False" Grid.Row="1">
+            <StackPanel Background="LightGray" Margin="0,5,0,0" Width="{Binding ActualWidth, ElementName=AddActionButton, Mode=OneWay}">
+                <Button x:Name="KeyCaptureButton" Content="Key Capture" Click="KeyCaptureButton_Click" />
+                <Button x:Name="ManualKeyAssigmentButton" Content="Manual key assignment"  />
+                <Button x:Name="DelayButton" Content="Delay" Click="DelayButton_Click"  />
+                <Button x:Name="TextButton" Content="Text"  />
+            </StackPanel>
+        </Popup>
     </Grid>
 </UserControl>

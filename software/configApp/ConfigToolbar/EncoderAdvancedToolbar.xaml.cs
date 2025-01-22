@@ -1,4 +1,5 @@
-﻿using configApp.Enums;
+﻿using configApp.Controls;
+using configApp.Enums;
 using configApp.UI;
 using System;
 using System.Collections.Generic;
@@ -28,8 +29,9 @@ namespace configApp.ConfigToolbar
         Button
     }
 
-    public partial class EncoderAdvancedToolbar : UserControl
+    public partial class EncoderAdvancedToolbar : UserControl, IControlToolbar
     {
+
         public static readonly DependencyProperty EncoderInputTypeProperty =
         DependencyProperty.Register(nameof(EncoderInputType), typeof(EncoderInputType), typeof(EncoderAdvancedToolbar), new PropertyMetadata(EncoderInputType.Left, OnToolbarTypeChanged));
 
@@ -38,9 +40,43 @@ namespace configApp.ConfigToolbar
             get => (EncoderInputType)GetValue(EncoderInputTypeProperty);
             set => SetValue(EncoderInputTypeProperty, value);
         }
+
+        public IControl NewControl 
+        {
+            get 
+            {
+                return new EncoderControl();
+            } 
+        }
+
+        private IControl _oldControl;
+
+        public IControl OldControl { 
+            set 
+            {
+                _oldControl = value;
+                //TODO : when uploaded, generate StackPanel items
+            }
+        }
+
+        private Dictionary<EncoderInputType, ScrollViewer> ScrollViewerMap { get; set; }
+        private Dictionary<EncoderInputType, StackPanel> StackPanelMap { get; set; }
+
         public EncoderAdvancedToolbar()
         {
             InitializeComponent();
+            ScrollViewerMap = new Dictionary<EncoderInputType, ScrollViewer>
+            {
+                { EncoderInputType.Left, LeftScrollViewer },
+                { EncoderInputType.Right, RightScrollViewer },
+                { EncoderInputType.Button, ButtonScrollViewer }
+            };
+            StackPanelMap = new Dictionary<EncoderInputType, StackPanel>
+            {
+                { EncoderInputType.Left, LeftActionsStackPanel },
+                { EncoderInputType.Right, RightActionsStackPanel },
+                { EncoderInputType.Button, ButtonActionsStackPanel }
+            };
         }
         private void AddActionButton_Click(object sender, RoutedEventArgs e)
         {
@@ -49,11 +85,13 @@ namespace configApp.ConfigToolbar
             bool? result = keysCaptureWindow.ShowDialog();
             if (result == true)
             {
-                ActionsStackPanel.Children.Add(new ActionStackPanelItem
+                ActionStackPanelItem item = new ActionStackPanelItem
                 {
                     LabelContent = keysCaptureWindow.CapturedKeyCombination,
                     Action = keysCaptureWindow.CreatedKeyboardAction
-                });
+                };
+                item.RemoveClicked += (s, e) => RemoveActionButton_Click(s, e);
+                StackPanelMap[EncoderInputType].Children.Add(item);
             }
         }
 
@@ -68,6 +106,14 @@ namespace configApp.ConfigToolbar
                     EncoderInputType = EncoderInputType.Right;
                 else if (toolbarType == "Button")
                     EncoderInputType = EncoderInputType.Button;
+
+                foreach (var scrollViewer in ScrollViewerMap.Values)
+                {
+                    scrollViewer.Visibility = Visibility.Hidden;
+                }
+
+                ScrollViewerMap[EncoderInputType].Visibility = Visibility.Visible;
+
             }
         }
 
@@ -77,11 +123,20 @@ namespace configApp.ConfigToolbar
             {
                 toolbar.UpdateVisuals();
             }
+            
         }
 
         private void UpdateVisuals()
         {
 
+        }
+
+        private void RemoveActionButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is ActionStackPanelItem item)
+            {
+                StackPanelMap[EncoderInputType].Children.Remove(item);
+            }
         }
     }
 }
