@@ -21,6 +21,8 @@ namespace configApp.UI
     /// </summary>
     public partial class ActionStackPanelItem : UserControl
     {
+        public RoutedEventHandler? RemoveClicked { get; set; }
+        public RoutedEventHandler? EditClicked { get; set; }
         public IAction Action { get; set; }
         public string LabelContent
         {
@@ -31,6 +33,16 @@ namespace configApp.UI
         public ActionStackPanelItem()
         {
             InitializeComponent();
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveClicked?.Invoke(this, e);
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditClicked?.Invoke(this, e);
         }
     }
 }

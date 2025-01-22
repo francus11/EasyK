@@ -20,12 +20,12 @@
             </Button.Content>
         </Button>
         <Label x:Name="ContentLabel" Content="text" Grid.Column="1" />
-        <Button x:Name="EditButton" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Grid.Column="2">
+        <Button x:Name="EditButton" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Grid.Column="2" Click="EditButton_Click">
             <Button.Content>
                 <Path Data="{StaticResource PenToSquareSolidIcon}" Fill="Black" VerticalAlignment="Center" Stretch="Uniform" HorizontalAlignment="Center" Width="10"/>
             </Button.Content>
         </Button>
-        <Button x:Name="DeleteButton" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Grid.Column="5">
+        <Button x:Name="DeleteButton" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}" Grid.Column="5" Click="DeleteButton_Click">
             <Button.Content>
                 <Path Data="{StaticResource XMarkSolidIcon}" Fill="Black" VerticalAlignment="Center" Stretch="Uniform" HorizontalAlignment="Center" Width="10"/>
             </Button.Content>
