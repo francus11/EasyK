@@ -73,7 +73,7 @@ namespace configApp
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            CreatedKeyboardAction = new KeyboardAction(ClickType.Press, CapturedKey, CapturedModifiers);
+            CreatedKeyboardAction = new KeyboardAction(ClickType.Click, CapturedKey, CapturedModifiers);
 
             CapturedKeyCombination = CreatedKeyboardAction.Label;
 
