@@ -12,5 +12,5 @@ EmptyAction* EmptyAction::deserialize(std::string json)
 
 std::string EmptyAction::serialize()
 {
-    return "{}";
+    return "";
 }
