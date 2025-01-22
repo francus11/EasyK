@@ -1,4 +1,5 @@
-﻿using configApp.Controls;
+﻿using configApp.Actions;
+using configApp.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,24 @@ namespace configApp.JsonConverters
     {
         public override ButtonControl? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
+            var button = new ButtonControl();
+
+            using (var document = JsonDocument.ParseValue(ref reader))
+            {
+                var root = document.RootElement;
+
+                if (root.TryGetProperty("id", out var idElement))
+                {
+                    button.Id = idElement.GetInt32();
+                }
+
+                if (root.TryGetProperty("action", out var actionElement))
+                {
+                    button.PressAction = JsonSerializer.Deserialize<IAction>(actionElement.GetRawText(), options);
+                }
+            }
+
+            return button;
         }
 
         public override void Write(Utf8JsonWriter writer, ButtonControl value, JsonSerializerOptions options)

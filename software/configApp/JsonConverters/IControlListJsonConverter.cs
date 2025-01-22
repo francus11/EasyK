@@ -1,4 +1,5 @@
-﻿using configApp.Controls;
+﻿using configApp.Actions;
+using configApp.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,33 @@ namespace configApp.JsonConverters
     {
         public override List<IControl>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
+            var controls = new List<IControl>();
+
+            using (var document = JsonDocument.ParseValue(ref reader))
+            {
+                var root = document.RootElement;
+
+                if (root.TryGetProperty("buttons", out var buttonsElements))
+                {
+                    foreach (var buttonElement in buttonsElements.EnumerateArray())
+                    {
+                        var button = JsonSerializer.Deserialize<ButtonControl>(buttonElement.GetRawText(), options);
+                        controls.Add(button);
+                    }
+                }
+
+                if (root.TryGetProperty("encoders", out var encodersElements))
+                {
+                    foreach (var encoderElement in encodersElements.EnumerateArray())
+                    {
+                        var encoder = JsonSerializer.Deserialize<EncoderControl>(encoderElement.GetRawText(), options);
+                        controls.Add(encoder);
+                    }
+                }
+            }
+
+            return controls;
+
         }
 
         public override void Write(Utf8JsonWriter writer, List<IControl> value, JsonSerializerOptions options)

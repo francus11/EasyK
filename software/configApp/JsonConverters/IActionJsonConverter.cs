@@ -13,28 +13,49 @@ namespace configApp.JsonConverters
     {
         public override IAction? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
+            IAction action = null;
+
+            using (var document = JsonDocument.ParseValue(ref reader))
+            {
+                var root = document.RootElement;
+
+                if (root.TryGetProperty("type", out var typeElement))
+                {
+                    var type = typeElement.GetString();
+                    if (type == typeof(DelayAction).Name)
+                    {
+                        action = JsonSerializer.Deserialize<DelayAction>(root.GetProperty("details").GetRawText(), options);
+                    }
+                    else if (type == typeof(KeyboardAction).Name)
+                    {
+                        action = JsonSerializer.Deserialize<KeyboardAction>(root.GetProperty("details").GetRawText(), options);
+                    }
+                    else if (type == typeof(MacroAction).Name)
+                    {
+                        action = JsonSerializer.Deserialize<MacroAction>(root.GetProperty("actions").GetRawText(), options);
+                    }
+                    else
+                    {
+                        throw new NotSupportedException();
+                    }
+                }
+            }
+
+            return action;
         }
 
         public override void Write(Utf8JsonWriter writer, IAction value, JsonSerializerOptions options)
         {
-            writer.WriteStartObject();
             if (value is DelayAction delayAction)
             {
-                writer.WriteString("type", typeof(DelayAction).Name);
-                writer.WritePropertyName("details");
                 JsonSerializer.Serialize(writer, delayAction, options);
             }
             else if (value is KeyboardAction keyboardAction)
             {
-                writer.WriteString("type", typeof(KeyboardAction).Name);
-                writer.WritePropertyName("details");
                 JsonSerializer.Serialize(writer, keyboardAction, options);
             }
             else if (value is MacroAction macroAction)
             {
-                writer.WriteString("type", typeof(MacroAction).Name);
-                writer.WritePropertyName("details");
                 JsonSerializer.Serialize(writer, macroAction, options);
             }
             else if (value is null)
@@ -51,7 +72,6 @@ namespace configApp.JsonConverters
             {
                 throw new NotSupportedException();
             }
-            writer.WriteEndObject();
         }
     }
 }
