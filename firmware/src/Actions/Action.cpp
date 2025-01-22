@@ -2,6 +2,7 @@
 #include "Actions/KeyboardAction.hpp"
 #include "Actions/EmptyAction.hpp"
 #include "Actions/MacroAction.hpp"
+#include "Actions/DelayAction.hpp"
 
 Action* Action::deserialize(std::string json)
 {
@@ -15,13 +16,18 @@ Action* Action::deserialize(std::string json)
     {
         return MacroAction::deserialize(json);
     }
+    else if (doc["type"] == "DelayAction")
+    {
+        return DelayAction::deserialize(doc["details"]);
+    }
+    
     else if (doc["type"] == "empty")
     {
         return EmptyAction::deserialize("");
     }
     else
     {
-        return nullptr;
+        return EmptyAction::deserialize("");
     }
 
 }
