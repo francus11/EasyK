@@ -4,7 +4,6 @@ public static class KeyToHidUsageIdMapper
 {
     private static readonly Dictionary<Key, int> _keyToUsageIdMap = new()
     {
-        // Klawisze alfabetyczne
         { Key.A, 0x04 },
         { Key.B, 0x05 },
         { Key.C, 0x06 },
@@ -32,7 +31,6 @@ public static class KeyToHidUsageIdMapper
         { Key.Y, 0x1C },
         { Key.Z, 0x1D },
 
-        // Klawisze numeryczne
         { Key.D1, 0x1E },
         { Key.D2, 0x1F },
         { Key.D3, 0x20 },
@@ -44,7 +42,6 @@ public static class KeyToHidUsageIdMapper
         { Key.D9, 0x26 },
         { Key.D0, 0x27 },
 
-        // Klawisze funkcyjne
         { Key.F1, 0x3A },
         { Key.F2, 0x3B },
         { Key.F3, 0x3C },
@@ -58,28 +55,30 @@ public static class KeyToHidUsageIdMapper
         { Key.F11, 0x44 },
         { Key.F12, 0x45 },
 
-        // Klawisze specjalne
         { Key.Enter, 0x28 },
         { Key.Escape, 0x29 },
-        { Key.Back, 0x2A }, // Backspace
+        { Key.Back, 0x2A },
         { Key.Tab, 0x2B },
         { Key.Space, 0x2C },
         { Key.CapsLock, 0x39 },
 
-        // Klawisze strzałek
         { Key.Up, 0x52 },
         { Key.Down, 0x51 },
         { Key.Left, 0x50 },
         { Key.Right, 0x4F }
     };
 
-    // Metoda do uzyskania Usage ID
     public static int? GetUsageId(Key key)
     {
         if (_keyToUsageIdMap.TryGetValue(key, out int usageId))
         {
             return usageId;
         }
-        return null; // Zwraca null, jeśli klawisz nie ma przypisanego Usage ID
+        return null; 
+    }
+
+    public static Key? GetKey(int usageId)
+    {
+        return _keyToUsageIdMap.FirstOrDefault(x => x.Value == usageId).Key;
     }
 }
