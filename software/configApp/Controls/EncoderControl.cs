@@ -10,15 +10,17 @@ namespace configApp.Controls
     public class EncoderControl : IControl
     {
         public int Id { get; set; }
-        public IAction? LeftAction { get; set; }
-        public IAction? RightAction { get; set; }
+        public IAction? ActionLeft { get; set; }
+        public IAction? ActionRight { get; set; }
+        public IAction? ActionButton { get; set; }
 
         public EncoderControl() { }
         public EncoderControl(EncoderControl encoder)
         {
             Id = encoder.Id;
-            LeftAction = encoder.LeftAction;
-            RightAction = encoder.RightAction;
+            ActionLeft = encoder.ActionLeft;
+            ActionRight = encoder.ActionRight;
+            ActionButton = encoder.ActionButton;
         }
     }
 }
