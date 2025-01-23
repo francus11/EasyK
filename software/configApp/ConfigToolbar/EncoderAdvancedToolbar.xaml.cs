@@ -1,4 +1,5 @@
-﻿using configApp.Controls;
+﻿using configApp.Actions;
+using configApp.Controls;
 using configApp.Enums;
 using configApp.UI;
 using System;
@@ -45,7 +46,36 @@ namespace configApp.ConfigToolbar
         {
             get 
             {
-                return new EncoderControl();
+                EncoderControl encoder = new EncoderControl();
+                Dictionary<StackPanel, IAction> actionMap = new Dictionary<StackPanel, IAction>
+                {
+                    { LeftActionsStackPanel, null },
+                    { RightActionsStackPanel, null },
+                    { ButtonActionsStackPanel, null }
+                };
+
+                foreach (var stackPanel in StackPanelMap)
+                {
+                    if (stackPanel.Value.Children.Count == 1)
+                    {
+                        actionMap[stackPanel.Value] = ((ActionStackPanelItem)stackPanel.Value.Children[0]).Action;
+                    }
+                    else if (stackPanel.Value.Children.Count > 1)
+                    {
+                        List<IAction> actions = new List<IAction>();
+                        foreach (ActionStackPanelItem item in stackPanel.Value.Children)
+                        {
+                            actions.Add(item.Action);
+                        }
+                        actionMap[stackPanel.Value] = new MacroAction(actions);
+                    }
+                }
+
+                encoder.ActionLeft = actionMap[LeftActionsStackPanel];
+                encoder.ActionRight = actionMap[RightActionsStackPanel];
+                encoder.ActionButton = actionMap[ButtonActionsStackPanel];
+
+                return encoder;
             } 
         }
 
@@ -55,6 +85,31 @@ namespace configApp.ConfigToolbar
             set 
             {
                 _oldControl = value;
+                List<(IAction, StackPanel)> actionStackPanelList = new List<(IAction, StackPanel)>()
+                {
+                    (((EncoderControl)_oldControl).ActionLeft, LeftActionsStackPanel),
+                    (((EncoderControl)_oldControl).ActionRight, RightActionsStackPanel),
+                    (((EncoderControl)_oldControl).ActionButton, ButtonActionsStackPanel)
+                };
+
+                foreach (var (action, stackPanel) in actionStackPanelList)
+                {
+                    if (action != null)
+                    {
+                        if (action is MacroAction)
+                        {
+                            foreach (IAction subAction in ((MacroAction)action).ActionList)
+                            {
+                                AddStackPanelItem(stackPanel, subAction);
+                            }   
+                        }
+                        else
+                        {
+                            AddStackPanelItem(stackPanel, action);
+                        }
+                    }
+                }
+
                 //TODO : when uploaded, generate StackPanel items
             }
         }
@@ -85,13 +140,8 @@ namespace configApp.ConfigToolbar
             bool? result = keysCaptureWindow.ShowDialog();
             if (result == true)
             {
-                ActionStackPanelItem item = new ActionStackPanelItem
-                {
-                    LabelContent = keysCaptureWindow.CapturedKeyCombination,
-                    Action = keysCaptureWindow.CreatedKeyboardAction
-                };
-                item.RemoveClicked += (s, e) => RemoveActionButton_Click(s, e);
-                StackPanelMap[EncoderInputType].Children.Add(item);
+                IAction action = keysCaptureWindow.CreatedKeyboardAction;
+                AddStackPanelItem(StackPanelMap[EncoderInputType], action);
             }
         }
 
@@ -124,6 +174,17 @@ namespace configApp.ConfigToolbar
                 toolbar.UpdateVisuals();
             }
             
+        }
+
+        private void AddStackPanelItem(StackPanel stackPanel, IAction action)
+        {
+            ActionStackPanelItem item = new ActionStackPanelItem
+            {
+                LabelContent = action.Label,
+                Action = action
+            };
+            item.RemoveClicked += (s, e) => RemoveActionButton_Click(s, e);
+            stackPanel.Children.Add(item);
         }
 
         private void UpdateVisuals()
