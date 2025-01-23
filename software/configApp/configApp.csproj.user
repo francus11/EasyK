@@ -19,6 +19,9 @@
     <Compile Update="ConnectDeviceSerialWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="DelayWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="KeysCapture.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -37,6 +40,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ConnectDeviceSerialWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="DelayWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Icons\PenToSquareSolidIcon.xaml">
