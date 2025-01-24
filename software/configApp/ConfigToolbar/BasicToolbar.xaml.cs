@@ -42,7 +42,7 @@ namespace configApp.ConfigToolbar
             set
             {
                 _control = value;
-                UpdateVisuals(); // Wywołanie metody przy każdej zmianie wartości
+                UpdateVisuals();
             }
         }
 
@@ -67,7 +67,6 @@ namespace configApp.ConfigToolbar
 
         private void UpdateVisuals()
         {
-            // Możesz dodać logikę, jeśli chcesz dynamicznie zmieniać zawartość Canvas
             ContentGrid.Children.Clear();
 
             if (ToolbarType == ToolbarType.Basic)
@@ -80,11 +79,9 @@ namespace configApp.ConfigToolbar
                 {
 
                 }
-                //TODO Dodaj zawartość dla Basic
             }
             else if (ToolbarType == ToolbarType.Advanced)
             {
-                //TODO Dodaj zawartość dla Advanced
                 if (Control is ButtonControl buttonControl)
                 { 
                     KeyAdvancedToolbar keyAdvancedToolbar = new KeyAdvancedToolbar();
@@ -110,13 +107,6 @@ namespace configApp.ConfigToolbar
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // Obsługa zapisywania
-            
-        }
-
-        //TODO Add event for saving
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             Control = _controlToolbar.NewControl;

@@ -23,7 +23,7 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding EncoderInputType, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="Left">
                     <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Background" Value="Blue"/>
+                    <Setter Property="Background" Value="Gray"/>
                     <Setter Property="FontWeight" Value="Bold"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -36,7 +36,7 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding EncoderInputType, RelativeSource={RelativeSource AncestorType=UserControl}}" Value="Right">
                     <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Background" Value="Green"/>
+                    <Setter Property="Background" Value="Gray"/>
                     <Setter Property="FontWeight" Value="Bold"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -76,16 +76,23 @@
             <StackPanel x:Name="LeftActionsStackPanel" VerticalAlignment="Top" Margin="10">
             </StackPanel>
         </ScrollViewer>
-        <ScrollViewer x:Name="RightScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <ScrollViewer x:Name="RightScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Visibility="Hidden">
             <StackPanel x:Name="RightActionsStackPanel" VerticalAlignment="Top" Margin="10">
             </StackPanel>
         </ScrollViewer>
-        <ScrollViewer x:Name="ButtonScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <ScrollViewer x:Name="ButtonScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Visibility="Hidden">
             <StackPanel x:Name="ButtonActionsStackPanel" VerticalAlignment="Top" Margin="10">
             </StackPanel>
         </ScrollViewer>
-        <GridSplitter Background="#FFE50808" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="5" Margin="0,377,0,0" Grid.Row="1" />
+        <GridSplitter Background="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="5" Grid.Row="1" />
 
         <Button x:Name="AddActionButton" Content="Add action" Grid.Row="2" Click="AddActionButton_Click" Margin="10,10,10,10" Height="20"/>
+        <Popup x:Name="MenuPopup" PlacementTarget="{Binding ElementName=AddActionButton}" Placement="Bottom" StaysOpen="False" Grid.Row="1">
+            <StackPanel Background="LightGray" Margin="0,5,0,0" Width="{Binding ActualWidth, ElementName=AddActionButton, Mode=OneWay}">
+                <Button x:Name="KeyCaptureButton" Content="Key Action" Click="KeyCaptureButton_Click" />
+                <Button x:Name="DelayButton" Content="Delay Action" Click="DelayButton_Click"  />
+                <Button x:Name="SystemButton" Content="System Action" Click="SystemButton_Click"  />
+            </StackPanel>
+        </Popup>
     </Grid>
 </UserControl>

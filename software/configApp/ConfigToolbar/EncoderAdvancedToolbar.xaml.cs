@@ -5,6 +5,7 @@ using configApp.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -132,17 +133,11 @@ namespace configApp.ConfigToolbar
                 { EncoderInputType.Right, RightActionsStackPanel },
                 { EncoderInputType.Button, ButtonActionsStackPanel }
             };
+
         }
         private void AddActionButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO : Add logic to select type of action
-            KeysCapture keysCaptureWindow = new KeysCapture();
-            bool? result = keysCaptureWindow.ShowDialog();
-            if (result == true)
-            {
-                IAction action = keysCaptureWindow.CreatedKeyboardAction;
-                AddStackPanelItem(StackPanelMap[EncoderInputType], action);
-            }
+            MenuPopup.IsOpen = !MenuPopup.IsOpen;
         }
 
         private void EncoderToolbarButton_Click(object sender, RoutedEventArgs e)
@@ -176,6 +171,91 @@ namespace configApp.ConfigToolbar
             
         }
 
+        private void KeyCaptureButton_Click(object sender, RoutedEventArgs e)
+        {
+            KeysCapture keysCaptureWindow = new KeysCapture();
+            bool? result = keysCaptureWindow.ShowDialog();
+            if (result == true)
+            {
+                AddStackPanelItem(StackPanelMap[EncoderInputType], keysCaptureWindow.CreatedKeyboardAction);
+            }
+        }
+
+        private void DelayButton_Click(object sender, RoutedEventArgs e)
+        {
+            DelayWindow delayWindow = new DelayWindow();
+            bool? result = delayWindow.ShowDialog();
+            if (result == true)
+            {
+                DelayAction action = new DelayAction(delayWindow.Result.Value);
+                AddStackPanelItem(StackPanelMap[EncoderInputType], action);
+            }
+        }
+
+        private void SystemButton_Click(object sender, RoutedEventArgs e)
+        {
+            SystemWindow systemWindow = new SystemWindow();
+            bool? result = systemWindow.ShowDialog();
+            if (result == true)
+            {
+                AddStackPanelItem(StackPanelMap[EncoderInputType], systemWindow.Action);
+            }
+        }
+
+        private void EditActionButton_Keyboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is ActionStackPanelItem item)
+            {
+                if (item.Action is KeyboardAction)
+                {
+                    KeysCapture KeysCapture = new KeysCapture();
+                    KeysCapture.OnLoadKeyboardAction = ((KeyboardAction)item.Action);
+                    bool? result = KeysCapture.ShowDialog();
+                    if (result == true)
+                    {
+                        item.LabelContent = KeysCapture.CreatedKeyboardAction.Label;
+                        item.Action = KeysCapture.CreatedKeyboardAction;
+                    }
+                }
+            }
+        }
+
+        private void EditActionButton_Delay_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is ActionStackPanelItem item)
+            {
+                if (item.Action is DelayAction)
+                {
+                    DelayWindow delayWindow = new DelayWindow();
+                    delayWindow.Action = ((DelayAction)item.Action);
+                    bool? result = delayWindow.ShowDialog();
+                    if (result == true)
+                    {
+                        item.LabelContent = delayWindow.Result.ToString();
+                        item.Action = new DelayAction(delayWindow.Result.Value);
+                    }
+                }
+            }
+        }
+
+        private void EditActionButton_System_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is ActionStackPanelItem item)
+            {
+                if (item.Action is SystemAction)
+                {
+                    SystemWindow systemWindow = new SystemWindow();
+                    systemWindow.Action = ((SystemAction)item.Action);
+                    bool? result = systemWindow.ShowDialog();
+                    if (result == true)
+                    {
+                        item.LabelContent = systemWindow.Action.Label;
+                        item.Action = systemWindow.Action;
+                    }
+                }
+            }
+        }
+
         private void AddStackPanelItem(StackPanel stackPanel, IAction action)
         {
             ActionStackPanelItem item = new ActionStackPanelItem
@@ -184,6 +264,19 @@ namespace configApp.ConfigToolbar
                 Action = action
             };
             item.RemoveClicked += (s, e) => RemoveActionButton_Click(s, e);
+
+            if (action is DelayAction)
+            {
+                item.EditClicked += (s, e) => EditActionButton_Delay_Click(s, e);
+            }
+            if (action is KeyboardAction)
+            {
+                item.EditClicked += (s, e) => EditActionButton_Keyboard_Click(s, e);
+            }
+            if (action is SystemAction)
+            {
+                item.EditClicked += (s, e) => EditActionButton_System_Click(s, e);
+            }
             stackPanel.Children.Add(item);
         }
 

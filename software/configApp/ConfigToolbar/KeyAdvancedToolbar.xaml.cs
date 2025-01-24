@@ -90,7 +90,6 @@ namespace configApp.ConfigToolbar
 
         private void AddActionButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO : Add logic to select type of action
             MenuPopup.IsOpen = !MenuPopup.IsOpen;
             
         }
@@ -121,6 +120,42 @@ namespace configApp.ConfigToolbar
             }
         }
 
+        private void EditActionButton_Keyboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is ActionStackPanelItem item)
+            {
+                if (item.Action is KeyboardAction)
+                {
+                    KeysCapture KeysCapture = new KeysCapture();
+                    KeysCapture.OnLoadKeyboardAction = ((KeyboardAction)item.Action);
+                    bool? result = KeysCapture.ShowDialog();
+                    if (result == true)
+                    {
+                        item.LabelContent = KeysCapture.CreatedKeyboardAction.Label;
+                        item.Action = KeysCapture.CreatedKeyboardAction;
+                    }
+                }
+            }
+        }
+
+        private void EditActionButton_System_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is ActionStackPanelItem item)
+            {
+                if (item.Action is SystemAction)
+                {
+                    SystemWindow systemWindow = new SystemWindow();
+                    systemWindow.Action = ((SystemAction)item.Action);
+                    bool? result = systemWindow.ShowDialog();
+                    if (result == true)
+                    {
+                        item.LabelContent = systemWindow.Action.Label;
+                        item.Action = systemWindow.Action;
+                    }
+                }
+            }
+        }
+
         private void KeyCaptureButton_Click(object sender, RoutedEventArgs e)
         {
             KeysCapture keysCaptureWindow = new KeysCapture();
@@ -142,6 +177,16 @@ namespace configApp.ConfigToolbar
             }
         }
 
+        private void SystemButton_Click(object sender, RoutedEventArgs e)
+        {
+            SystemWindow systemWindow = new SystemWindow();
+            bool? result = systemWindow.ShowDialog();
+            if (result == true)
+            {
+                AddStackPanelItem(systemWindow.Action);
+            }
+        }
+
         private void AddStackPanelItem(IAction action)
         {
             ActionStackPanelItem item = new ActionStackPanelItem
@@ -155,7 +200,17 @@ namespace configApp.ConfigToolbar
             {
                 item.EditClicked += (s, e) => EditActionButton_Delay_Click(s, e);
             }
+            if (action is KeyboardAction)
+            {
+                item.EditClicked += (s, e) => EditActionButton_Keyboard_Click(s, e);
+            }
+            if (action is SystemAction)
+            {
+                item.EditClicked += (s, e) => EditActionButton_System_Click(s, e);
+            }
             ActionsStackPanel.Children.Add(item);
         }
+
+        
     }
 }

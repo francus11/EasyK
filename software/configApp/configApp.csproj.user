@@ -28,6 +28,9 @@
     <Compile Update="UI\ActionStackPanelItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="SystemWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="ConfigToolbar\BasicToolbar.xaml">
@@ -61,6 +64,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\ActionStackPanelItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SystemWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -2,7 +2,7 @@
 
 public static class KeyToHidUsageIdMapper
 {
-    private static readonly Dictionary<Key, int> _keyToUsageIdMap = new()
+    public static readonly Dictionary<Key, int> KeyToUsageIdMap = new()
     {
         { Key.A, 0x04 },
         { Key.B, 0x05 },
@@ -65,12 +65,62 @@ public static class KeyToHidUsageIdMapper
         { Key.Up, 0x52 },
         { Key.Down, 0x51 },
         { Key.Left, 0x50 },
-        { Key.Right, 0x4F }
+        { Key.Right, 0x4F },
+
+        { Key.LeftShift, 0xE1 },
+        { Key.RightShift, 0xE5 },
+        { Key.LeftCtrl, 0xE0 },
+        { Key.RightCtrl, 0xE4 },
+        { Key.LeftAlt, 0xE2 },
+        { Key.RightAlt, 0xE6},
+        { Key.LWin, 0xE3    },
+        { Key.RWin, 0xE7 },
+
+        { Key.Insert, 0x49 },
+        { Key.Delete, 0x4C },
+        { Key.Home, 0x4A },
+        { Key.End, 0x4D },
+        { Key.PageUp, 0x4B },
+        { Key.PageDown, 0x4E },
+
+        { Key.NumPad0, 0x62 },
+        { Key.NumPad1, 0x59 },
+        { Key.NumPad2, 0x5A },
+        { Key.NumPad3, 0x5B },
+        { Key.NumPad4, 0x5C },
+        { Key.NumPad5, 0x5D },
+        { Key.NumPad6, 0x5E },
+        { Key.NumPad7, 0x5F },
+        { Key.NumPad8, 0x60 },
+        { Key.NumPad9, 0x61 },
+
+        { Key.Add, 0x57 },
+        { Key.Subtract, 0x56 },
+        { Key.Multiply, 0x55 },
+        { Key.Divide, 0x54 },
+        { Key.Decimal, 0x63 },
+        { Key.NumLock, 0x53 },
+
+        { Key.Scroll, 0x47 },
+        { Key.Pause, 0x48 },
+
+        { Key.OemTilde, 0x35 },
+        { Key.OemMinus, 0x2D },
+        { Key.OemPlus, 0x2E },
+        { Key.OemOpenBrackets, 0x2F },
+        { Key.OemCloseBrackets, 0x30 },
+        { Key.OemSemicolon, 0x33 },
+        { Key.OemQuotes, 0x34 },
+        { Key.OemComma, 0x36 },
+        { Key.OemPeriod, 0x37 },
+        { Key.OemQuestion, 0x38 },
+        { Key.OemPipe, 0x64 },
+        { Key.OemBackslash, 0x64 },
     };
 
     public static int? GetUsageId(Key key)
     {
-        if (_keyToUsageIdMap.TryGetValue(key, out int usageId))
+        if (KeyToUsageIdMap.TryGetValue(key, out int usageId))
         {
             return usageId;
         }
@@ -79,6 +129,6 @@ public static class KeyToHidUsageIdMapper
 
     public static Key? GetKey(int usageId)
     {
-        return _keyToUsageIdMap.FirstOrDefault(x => x.Value == usageId).Key;
+        return KeyToUsageIdMap.FirstOrDefault(x => x.Value == usageId).Key;
     }
 }

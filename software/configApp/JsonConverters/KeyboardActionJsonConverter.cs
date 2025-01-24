@@ -26,8 +26,8 @@ namespace configApp.JsonConverters
                     //TODO do something with modifiers
                     action = new KeyboardAction(
                         (ClickType)root.GetProperty("state").GetInt32(), 
-                        KeyToHidUsageIdMapper.GetKey(root.GetProperty("key").GetInt32()), 
-                        new List<ModifierKeys>()
+                        KeyToHidUsageIdMapper.GetKey(root.GetProperty("key").GetInt32()),
+                        (ModifierKeys)root.GetProperty("modifiers").GetInt32()
                         );
                 }
                 catch (KeyNotFoundException e)
@@ -48,6 +48,7 @@ namespace configApp.JsonConverters
             writer.WriteNumber("state", (int)value.ClickType);
             int key = KeyToHidUsageIdMapper.GetUsageId(value.CombinationKey.Value) ?? 0;
             writer.WriteNumber("key", key);
+            writer.WriteNumber("modifiers", (int)value.Modifiers);
             writer.WriteEndObject();
             writer.WriteEndObject();
         }

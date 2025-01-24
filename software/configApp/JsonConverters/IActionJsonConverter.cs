@@ -60,13 +60,7 @@ namespace configApp.JsonConverters
             }
             else if (value is null)
             {
-                //TODO implement null value
-
-                //writer.WriteNullValue();
-
-                //writer.WriteStartObject();
-                //writer.write
-                //writer.WriteEndObject();
+                
             }
             else
             {
